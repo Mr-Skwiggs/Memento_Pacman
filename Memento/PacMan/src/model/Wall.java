@@ -19,4 +19,8 @@ public class Wall extends Bloc {
     public Wall(Point position){
         super(position, Color.BLACK);
     }
+    
+    public Wall(Wall w){
+        super(w);
+    }
 }

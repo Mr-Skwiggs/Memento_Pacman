@@ -19,6 +19,10 @@ public class Coin extends Bloc {
         super(position,Color.LIGHT_GRAY);
     }
     
+    public Coin(Coin c){
+        super(c);
+    }
+    
     @Override
     public void paintOn(Graphics g){
         g.setColor(color);

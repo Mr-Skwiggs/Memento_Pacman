@@ -30,6 +30,13 @@ public class Pacman extends Character {
         super(position);
     }
     
+    public Pacman(Pacman p){
+        super(p);
+        state = p.state;
+        time = p.time;
+        force = p.force;
+    }
+    
     public void touch(Enemy e){
         if(state == State.INVINCIBLE){
             e.moveToStart();

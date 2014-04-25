@@ -18,5 +18,7 @@ public class Bonus extends Coin{
         super(position);
         this.color = Color.GREEN;
     }
-    
+    public Bonus(Bonus b){
+        super(b);
+    }
 }

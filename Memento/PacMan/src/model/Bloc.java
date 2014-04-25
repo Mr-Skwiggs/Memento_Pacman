@@ -27,6 +27,11 @@ public abstract class Bloc implements Paintable {
         this.color = color;
     }
     
+    Bloc(Bloc c){
+        this.color = c.color;
+        this.position = c.position;
+    }
+    
     @Override
     public void paintOn(Graphics g){
         g.setColor(this.color);

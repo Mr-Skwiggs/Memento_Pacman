@@ -11,6 +11,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JPanel;
@@ -22,12 +24,12 @@ import model.Maze;
  * @author boverhae
  */
 public class PacmanJPanel extends JPanel implements Observer {
-    
-    private Maze maze;
-    
+        
+    private List<Maze> mazes = new ArrayList<>(); 
+   
     public PacmanJPanel(Maze maze){
         super();
-        this.maze = maze;
+        this.mazes.add(maze);
         maze.addObserver(this);
         this.setBackground(Color.WHITE);
         this.setFocusable(true);
@@ -48,6 +50,8 @@ public class PacmanJPanel extends JPanel implements Observer {
                     case KeyEvent.VK_RIGHT:
                         PacmanJPanel.this.maze.setPacmanDirection(Direction.EAST);
                         break;
+                    case KeyEvent.VK_Z:
+                        mazes.set(0,mazes.get(mazes.size()-1));
                 }
             }
             @Override

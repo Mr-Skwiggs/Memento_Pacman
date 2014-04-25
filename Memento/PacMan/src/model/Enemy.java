@@ -31,6 +31,12 @@ public class Enemy extends Character {
         setRandomDirection();
     }
     
+    public Enemy(Enemy e){
+        super(e);
+        state = e.state;
+        time = e.time;
+    }
+    
     @Override
     public void move(){
         super.move();

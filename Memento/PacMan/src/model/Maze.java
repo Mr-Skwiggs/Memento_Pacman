@@ -46,6 +46,16 @@ public class Maze extends Observable implements Paintable, ActionListener {
         t.setRepeats(true);
         t.start(); 
     }
+    
+    public Maze(Maze z){
+    pacman = new Pacman(z.pacman);
+    enemies = new ArrayList<>(z.enemies);
+    walls = new ArrayList<>(z.walls);
+    coins = new ArrayList<>(z.coins);
+    
+    win = z.win;
+    loose = z.loose;
+    }
 
     private int[][] getMap() {
         //0 : rien

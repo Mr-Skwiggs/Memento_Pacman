@@ -139,15 +139,10 @@ public class Maze extends Observable implements Paintable, ActionListener {
     }
     
     public void movePacman(Direction dir){
-        if(getPossibleDirections(pacman).contains(dir))
-            pacman.setDirection(dir);
-        else{
-            for(Wall w : walls){
-                if(pacman.isAboutToIntersect(w)){
-                    pacman.setDirection(null);
-                }
-            }
-        }
+        for(Wall w : walls)
+            if(pacman.isAboutToIntersect(w))
+                pacman.setDirection(null);
+        
         pacman.move();
         this.manageCollisions();
         this.setChanged();
@@ -172,7 +167,8 @@ public class Maze extends Observable implements Paintable, ActionListener {
     }
     
     public void setPacmanDirection(Direction d){
-        pacman.setDirection(d);
+        if(getPossibleDirections(pacman).contains(d))
+            pacman.setDirection(d);
     }
 
     @Override

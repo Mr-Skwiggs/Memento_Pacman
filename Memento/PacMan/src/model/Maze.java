@@ -39,25 +39,49 @@ public class Maze extends Observable implements Paintable, ActionListener {
     private int width;
     private int height;
     
+    private Timer t ;
+    
     public Maze(){
         buildMap(getMap());
         //execute toutes les 10ms la méthode actionPerformed
-        Timer t = new Timer(TURN_TIME, this);
+        t = new Timer(TURN_TIME, this);
         t.setRepeats(true);
         t.start(); 
     }
     
     public Maze(Maze z){
-    pacman = new Pacman(z.pacman);
-    enemies = new ArrayList<>(z.enemies);
-    walls = new ArrayList<>(z.walls);
-    coins = new ArrayList<>(z.coins);
+        pacman = new Pacman(z.pacman);
+        for(Enemy e : z.enemies)
+            enemies.add(new Enemy(e));
+        for(Wall w : z.walls)
+            walls.add(new Wall(w));
+        for(Object o : z.coins)
+            if(o instanceof Bonus){
+                Bonus b = (Bonus)o;
+                coins.add(new Bonus(b));
+            }
+            else {
+                Coin c = (Coin)o;
+                coins.add(new Coin(c));
+            }
+
+        width = z.width;
+        height = z.height;
+
+        win = z.win;
+        loose = z.loose;
+
+        t = new Timer(TURN_TIME,this);
+        t.setRepeats(true);
+        t.stop();
+    }
     
-    width = z.width;
-    height = z.height;
+    public void startTimer(){
+        t.restart();
+    }
     
-    win = z.win;
-    loose = z.loose;
+    public void stopTimer(){
+        t.stop();
     }
 
     private int[][] getMap() {

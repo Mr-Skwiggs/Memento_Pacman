@@ -57,7 +57,9 @@ public class PacmanJPanel extends JPanel implements Observer {
                     case KeyEvent.VK_Z:
                         if(mazes.size() > 1){
                             mazes.set(0,new Maze(mazes.get(mazes.size()-1)));
+                            mazes.get(mazes.size()-1).stopTimer();
                             mazes.remove(mazes.size()-1);
+                            mazes.get(0).startTimer();
                         }
                         break;
                 }

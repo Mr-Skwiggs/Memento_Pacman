@@ -53,6 +53,9 @@ public class Maze extends Observable implements Paintable, ActionListener {
     walls = new ArrayList<>(z.walls);
     coins = new ArrayList<>(z.coins);
     
+    width = z.width;
+    height = z.height;
+    
     win = z.win;
     loose = z.loose;
     }

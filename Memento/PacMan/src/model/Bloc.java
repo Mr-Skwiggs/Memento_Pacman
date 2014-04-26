@@ -29,7 +29,7 @@ public abstract class Bloc implements Paintable {
     
     Bloc(Bloc c){
         this.color = c.color;
-        this.position = c.position;
+        this.position = new Point(c.position);
     }
     
     @Override

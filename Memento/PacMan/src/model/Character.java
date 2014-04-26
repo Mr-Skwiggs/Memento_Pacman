@@ -31,7 +31,7 @@ public abstract class Character extends Bloc{
         super(c);
         dirX = c.dirX;
         dirY = c.dirY;
-        start_point = c.start_point;
+        start_point = new Point(c.start_point);
         direction = c.direction;
     }
 

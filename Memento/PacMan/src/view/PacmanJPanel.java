@@ -30,7 +30,7 @@ public class PacmanJPanel extends JPanel implements Observer {
     public PacmanJPanel(Maze maze){
         super();
         this.mazes.add(maze);
-        maze.addObserver(this);
+        mazes.get(0).addObserver(this);
         this.setBackground(Color.WHITE);
         this.setFocusable(true);
         this.requestFocusInWindow();
@@ -39,19 +39,27 @@ public class PacmanJPanel extends JPanel implements Observer {
             public void keyPressed(KeyEvent e) {
                 switch(e.getKeyCode()){
                     case KeyEvent.VK_UP:
-                        PacmanJPanel.this.maze.setPacmanDirection(Direction.NORTH);
+                        PacmanJPanel.this.mazes.get(0).setPacmanDirection(Direction.NORTH);
+                        mazes.add(new Maze(mazes.get(0)));
                         break;
                     case KeyEvent.VK_DOWN:
-                        PacmanJPanel.this.maze.setPacmanDirection(Direction.SOUTH);
+                        PacmanJPanel.this.mazes.get(0).setPacmanDirection(Direction.SOUTH);
+                        mazes.add(new Maze(mazes.get(0)));
                         break;
                     case KeyEvent.VK_LEFT:
-                        PacmanJPanel.this.maze.setPacmanDirection(Direction.WEST);
+                        PacmanJPanel.this.mazes.get(0).setPacmanDirection(Direction.WEST);
+                        mazes.add(new Maze(mazes.get(0)));
                         break;
                     case KeyEvent.VK_RIGHT:
-                        PacmanJPanel.this.maze.setPacmanDirection(Direction.EAST);
+                        PacmanJPanel.this.mazes.get(0).setPacmanDirection(Direction.EAST);
+                        mazes.add(new Maze(mazes.get(0)));
                         break;
                     case KeyEvent.VK_Z:
-                        mazes.set(0,mazes.get(mazes.size()-1));
+                        if(mazes.size() > 1){
+                            mazes.set(0,new Maze(mazes.get(mazes.size()-1)));
+                            mazes.remove(mazes.size()-1);
+                        }
+                        break;
                 }
             }
             @Override
@@ -74,7 +82,7 @@ public class PacmanJPanel extends JPanel implements Observer {
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        maze.paintOn(g);
+        mazes.get(0).paintOn(g);
         
     }
 

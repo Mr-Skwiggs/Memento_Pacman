@@ -235,10 +235,9 @@ public class Maze extends Observable implements Paintable, ActionListener {
             } else if(pacman.isDead()){
                 loose = true;
             }
-
-            Maze.this.setChanged();
-            Maze.this.notifyObservers();
         }
+        Maze.this.setChanged();
+        Maze.this.notifyObservers();
     }
 
     private void manageCollisions() {

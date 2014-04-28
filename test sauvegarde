@@ -1,0 +1,13 @@
+case KeyEvent.VK_Z:
+                        if(mazes.size() > 2){
+                            mazes.set(1,new Maze(mazes.get(mazes.size()-1)));
+                            mazes.get(mazes.size()-1).stopTimer();
+                            mazes.remove(mazes.size()-1);
+                            mazes.get(1).startTimer();
+                        }
+                        else if(mazes.size() == 2){
+                            mazes.get(1).stopTimer();
+                            mazes.set(1,new Maze(mazes.get(0)));
+                            mazes.get(1).startTimer();
+                        }
+                        break;

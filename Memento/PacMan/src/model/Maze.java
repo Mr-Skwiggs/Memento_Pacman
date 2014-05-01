@@ -73,7 +73,6 @@ public class Maze extends Observable implements Paintable, ActionListener {
 
         t = new Timer(TURN_TIME,this);
         t.setRepeats(true);
-        t.stop();
     }
     
     public void startTimer(){

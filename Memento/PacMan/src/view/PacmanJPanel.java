@@ -17,6 +17,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JPanel;
 import model.Direction;
+import model.GateKeeper;
 import model.Maze;
 
 /**
@@ -25,12 +26,14 @@ import model.Maze;
  */
 public class PacmanJPanel extends JPanel implements Observer {
         
-    private List<Maze> mazes = new ArrayList<>(); 
+    private Maze maze ;
+    private GateKeeper gk ;
    
-    public PacmanJPanel(Maze maze){
+    public PacmanJPanel(Maze m){
         super();
-        this.mazes.add(maze);
-        mazes.get(0).addObserver(this);
+        maze = m ;
+        gk = new GateKeeper(maze);
+        maze.addObserver(this);
         this.setBackground(Color.WHITE);
         this.setFocusable(true);
         this.requestFocusInWindow();
@@ -39,28 +42,25 @@ public class PacmanJPanel extends JPanel implements Observer {
             public void keyPressed(KeyEvent e) {
                 switch(e.getKeyCode()){
                     case KeyEvent.VK_UP:
-                        PacmanJPanel.this.mazes.get(0).setPacmanDirection(Direction.NORTH);
-                        mazes.add(new Maze(mazes.get(0)));
+                        maze.setPacmanDirection(Direction.NORTH);
+                        gk.save(maze);
                         break;
                     case KeyEvent.VK_DOWN:
-                        PacmanJPanel.this.mazes.get(0).setPacmanDirection(Direction.SOUTH);
-                        mazes.add(new Maze(mazes.get(0)));
+                        maze.setPacmanDirection(Direction.SOUTH);
+                        gk.save(maze);
                         break;
                     case KeyEvent.VK_LEFT:
-                        PacmanJPanel.this.mazes.get(0).setPacmanDirection(Direction.WEST);
-                        mazes.add(new Maze(mazes.get(0)));
+                        maze.setPacmanDirection(Direction.WEST);
+                        gk.save(maze);
                         break;
                     case KeyEvent.VK_RIGHT:
-                        PacmanJPanel.this.mazes.get(0).setPacmanDirection(Direction.EAST);
-                        mazes.add(new Maze(mazes.get(0)));
+                        maze.setPacmanDirection(Direction.EAST);
+                        gk.save(maze);
                         break;
                     case KeyEvent.VK_Z:
-                        if(mazes.size() > 1){
-                            mazes.set(0,new Maze(mazes.get(mazes.size()-1)));
-                            mazes.get(mazes.size()-1).stopTimer();
-                            mazes.remove(mazes.size()-1);
-                            mazes.get(0).startTimer();
-                        }
+                            maze.deleteObserver(PacmanJPanel.this);
+                            maze = gk.restore(maze);
+                            maze.addObserver(PacmanJPanel.this);
                         break;
                 }
             }
@@ -84,7 +84,7 @@ public class PacmanJPanel extends JPanel implements Observer {
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        mazes.get(0).paintOn(g);
+        maze.paintOn(g);
         
     }
 

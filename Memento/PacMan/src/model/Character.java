@@ -34,7 +34,7 @@ public abstract class Character extends Bloc{
         start_point = new Point(c.start_point);
         direction = c.direction;
     }
-
+    
     public void move(){
         this.position.x += dirX;
         this.position.y += dirY;

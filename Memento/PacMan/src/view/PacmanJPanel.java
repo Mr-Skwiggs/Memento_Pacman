@@ -59,7 +59,9 @@ public class PacmanJPanel extends JPanel implements Observer {
                         break;
                     case KeyEvent.VK_Z:
                             maze.deleteObserver(PacmanJPanel.this);
+                            maze.stopTimer();
                             maze = gk.restore(maze);
+                            maze.startTimer();
                             maze.addObserver(PacmanJPanel.this);
                         break;
                 }

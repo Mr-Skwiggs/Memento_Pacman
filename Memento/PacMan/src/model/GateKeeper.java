@@ -27,14 +27,12 @@ public class GateKeeper {
     }
     public Maze restore(Maze m){
         Maze tempMaze ;
-        m.stopTimer();
         if(mazes.isEmpty())
             tempMaze =  new Maze(Origine) ;
         else{
             tempMaze = mazes.get(mazes.size()-1);
             mazes.remove(mazes.size()-1);
         }
-        tempMaze.startTimer();
         return tempMaze ;
     }
 }

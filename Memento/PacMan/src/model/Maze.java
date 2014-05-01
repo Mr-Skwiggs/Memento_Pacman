@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +23,7 @@ import javax.swing.Timer;
  *
  * @author boverhae
  */
-public class Maze extends Observable implements Paintable, ActionListener {
+public class Maze extends Observable implements Paintable, ActionListener, Serializable {
     static final Random GENERATOR = new Random();
     static final int SQUARE_SIZE = 20;
     static final int PROB_DIRECTION_CHANGE = 10;
@@ -41,7 +42,7 @@ public class Maze extends Observable implements Paintable, ActionListener {
     
     private Timer t ;
     
-    public static class Memento{
+    public static class Memento implements Serializable{
         private Maze savedMaze;
         
         public Memento(Maze mazeToSave){ savedMaze = mazeToSave; }

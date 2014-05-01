@@ -11,10 +11,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import model.Direction;
 import model.GateKeeper;
@@ -59,13 +62,35 @@ public class PacmanJPanel extends JPanel implements Observer {
                         gk.save(maze.saveToMemento());
                         break;
                     case KeyEvent.VK_Z:
-                            maze.deleteObserver(PacmanJPanel.this);
-                            maze = maze.restoreFromMemento(gk.restore());
-                            maze.addObserver(PacmanJPanel.this);
+                        ctrlZ();
+                        break;
+                    case KeyEvent.VK_S:
+                        try {
+                            gk.saveToFile(maze.saveToMemento());
+                        } catch (IOException ex) {
+                            Logger.getLogger(PacmanJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        break;
+                    case KeyEvent.VK_I:
+                        try {
+                            gk.loadSavedFile();
+                        } catch (IOException ex) {
+                            Logger.getLogger(PacmanJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(PacmanJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        ctrlZ();
                         break;
                 }
                 maze.startTimer();
             }
+            
+            private void ctrlZ(){
+                maze.deleteObserver(PacmanJPanel.this);
+                maze = maze.restoreFromMemento(gk.restore());
+                maze.addObserver(PacmanJPanel.this);
+            }
+            
             @Override
             public void keyReleased(KeyEvent e){
                 //PacmanJPanel.this.maze.movePacman(null);

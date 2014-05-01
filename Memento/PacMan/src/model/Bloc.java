@@ -9,12 +9,13 @@ package model;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.io.Serializable;
 
 /**
  *
  * @author boverhae
  */
-public abstract class Bloc implements Paintable {    
+public abstract class Bloc implements Paintable, Serializable {    
     protected Point position;
     protected Color color;
 

@@ -41,6 +41,25 @@ public class Maze extends Observable implements Paintable, ActionListener {
     
     private Timer t ;
     
+    public static class Memento{
+        private Maze savedMaze;
+        
+        public Memento(Maze mazeToSave){ savedMaze = mazeToSave; }
+        public Maze getSavedMaze(){ return savedMaze; }
+        public Memento(Memento memento){
+            this.savedMaze = new Maze(memento.savedMaze);
+        }
+    }
+    
+    public Object saveToMemento(){
+        return new Memento(new Maze(this));
+    }
+    
+    public Maze restoreFromMemento(Object o){
+        Memento m = (Memento)o;
+        return m.getSavedMaze();
+    }
+    
     public Maze(){
         buildMap(getMap());
         //execute toutes les 10ms la méthode actionPerformed

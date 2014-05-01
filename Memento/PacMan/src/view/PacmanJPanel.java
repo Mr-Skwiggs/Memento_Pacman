@@ -32,7 +32,7 @@ public class PacmanJPanel extends JPanel implements Observer {
     public PacmanJPanel(Maze m){
         super();
         maze = m ;
-        gk = new GateKeeper(maze);
+        gk = new GateKeeper(maze.saveToMemento());
         maze.addObserver(this);
         this.setBackground(Color.WHITE);
         this.setFocusable(true);
@@ -44,23 +44,23 @@ public class PacmanJPanel extends JPanel implements Observer {
                 switch(e.getKeyCode()){
                     case KeyEvent.VK_UP:
                         maze.setPacmanDirection(Direction.NORTH);
-                        gk.save(maze);
+                        gk.save(maze.saveToMemento());
                         break;
                     case KeyEvent.VK_DOWN:
                         maze.setPacmanDirection(Direction.SOUTH);
-                        gk.save(maze);
+                        gk.save(maze.saveToMemento());
                         break;
                     case KeyEvent.VK_LEFT:
                         maze.setPacmanDirection(Direction.WEST);
-                        gk.save(maze);
+                        gk.save(maze.saveToMemento());
                         break;
                     case KeyEvent.VK_RIGHT:
                         maze.setPacmanDirection(Direction.EAST);
-                        gk.save(maze);
+                        gk.save(maze.saveToMemento());
                         break;
                     case KeyEvent.VK_Z:
                             maze.deleteObserver(PacmanJPanel.this);
-                            maze = gk.restore(maze);
+                            maze = maze.restoreFromMemento(gk.restore());
                             maze.addObserver(PacmanJPanel.this);
                         break;
                 }

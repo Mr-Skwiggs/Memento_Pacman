@@ -6,6 +6,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.Maze.Memento;
 import view.PacmanJPanel;
 
 /**
@@ -14,24 +15,24 @@ import view.PacmanJPanel;
  */
 public class GateKeeper {
     
-    private List<Maze> mazes = new ArrayList<>();
-    final Maze Origine ;
+    private List<Object> mementos = new ArrayList<>();
+    final Object Origine ;
     
-    public GateKeeper(Maze m){
-        Origine = new Maze(m) ;
+    public GateKeeper(Object o){
+        Origine = o ;
     }
     
-    public void save(Maze m){
-        mazes.add(new Maze(m));
+    public void save(Object o){
+        mementos.add(o);
     }
-    public Maze restore(Maze m){
-        Maze tempMaze ;
-        if(mazes.isEmpty())
-            tempMaze =  new Maze(Origine) ;
+    public Object restore(){
+        Object temp ;
+        if(mementos.isEmpty())
+            temp = new Memento((Memento) Origine) ;
         else{
-            tempMaze = mazes.get(mazes.size()-1);
-            mazes.remove(mazes.size()-1);
+            temp = mementos.get(mementos.size()-1);
+            mementos.remove(mementos.size()-1);
         }
-        return tempMaze ;
+        return temp ;
     }
 }

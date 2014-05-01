@@ -23,7 +23,6 @@ public class GateKeeper {
     
     public void save(Maze m){
         mazes.add(new Maze(m));
-        mazes.get(mazes.size()-1).stopTimer();
     }
     public Maze restore(Maze m){
         Maze tempMaze ;

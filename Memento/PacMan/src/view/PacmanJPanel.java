@@ -40,6 +40,7 @@ public class PacmanJPanel extends JPanel implements Observer {
         this.addKeyListener(new KeyAdapter(){
             @Override
             public void keyPressed(KeyEvent e) {
+                maze.stopTimer();
                 switch(e.getKeyCode()){
                     case KeyEvent.VK_UP:
                         maze.setPacmanDirection(Direction.NORTH);
@@ -59,12 +60,11 @@ public class PacmanJPanel extends JPanel implements Observer {
                         break;
                     case KeyEvent.VK_Z:
                             maze.deleteObserver(PacmanJPanel.this);
-                            maze.stopTimer();
                             maze = gk.restore(maze);
-                            maze.startTimer();
                             maze.addObserver(PacmanJPanel.this);
                         break;
                 }
+                maze.startTimer();
             }
             @Override
             public void keyReleased(KeyEvent e){

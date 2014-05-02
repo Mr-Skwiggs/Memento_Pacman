@@ -46,10 +46,8 @@ public class Maze extends Observable implements Paintable, ActionListener, Seria
         private Maze savedMaze;
         
         public Memento(Maze mazeToSave){ savedMaze = mazeToSave; }
+        public Memento(Memento memento){ this.savedMaze = new Maze(memento.savedMaze); }
         public Maze getSavedMaze(){ return savedMaze; }
-        public Memento(Memento memento){
-            this.savedMaze = new Maze(memento.savedMaze);
-        }
     }
     
     public Object saveToMemento(){

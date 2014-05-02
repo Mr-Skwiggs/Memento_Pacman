@@ -71,7 +71,7 @@ public class PacmanJPanel extends JPanel implements Observer {
                             Logger.getLogger(PacmanJPanel.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         break;
-                    case KeyEvent.VK_I:
+                    case KeyEvent.VK_L:
                         try {
                             gk.loadSavedFile();
                         } catch (IOException ex) {
